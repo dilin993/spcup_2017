@@ -1,0 +1,31 @@
+[y, fs] = audioread('..\training_set\open\open_001.wav');
+
+L = size(y, 1);
+WINDOW = 100;
+OVERLAP = 50;
+NFFT = 2^(nextpow2(WINDOW)+2);
+
+player = audioplayer(y, fs);
+
+[s,f,t] = spectrogram(y,WINDOW,OVERLAP,NFFT,fs);
+
+s = log(s);
+
+[M, N] = size(s);
+
+ds = zeros(size(s));
+ds(:,2:N) =  diff(s,1,2)*fs;
+
+ds(ds<0) = 0;
+
+acc = sum(ds,1);
+
+acc_mean = smooth(acc,13);
+
+plot(t,acc);
+
+hold on;
+
+plot(t,acc_mean);
+
+n_c
