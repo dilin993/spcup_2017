@@ -47,12 +47,9 @@ x = linspace(-size / 2, size / 2, size);
 gaussFilter = exp(-x .^ 2 / (2 * sigma ^ 2));
 gaussFilter = gaussFilter / sum (gaussFilter); % normalize
 
-O = conv(acc0,gaussFilter,'same');
+o_
 
-figure;
-plot(t,O);
-title('smoothed onset signal');
-xlabel('time(s)')
+
 
 
 
