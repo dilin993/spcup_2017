@@ -12,7 +12,7 @@ player = audioplayer(y, fs);
 
 [s,f,t] = spectrogram(y,WINDOW,OVERLAP,NFFT,fs);
 
-s = log(s);
+s = log(abs(s));
 
 [M, N] = size(s);
 
@@ -33,7 +33,7 @@ plot(t,acc_mean);
 
 n_cur = acc - acc_mean;
 n_cur(n_cur<0)= 0;
-TH = mean(n_cur)+ std(n_cur);
+TH = mean(n_cur)+ 4*std(n_cur);
 n_cur(n_cur<TH) = 0;
 hold on;
 
@@ -51,3 +51,5 @@ hold on;
 t_mark = t(n_cur>0)';
 marks = zeros(size(t_mark,1),1);
 stem(t_mark,marks);
+
+player.play()
